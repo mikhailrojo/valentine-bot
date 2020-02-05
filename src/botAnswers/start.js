@@ -18,6 +18,8 @@ module.exports = (bot, msg) => {
 
 	// проверяем базу данных
 	const areMsgs = db.getMsg(`@${username}`);
+
+	console.log('areMsgs', areMsgs);
 	if (areMsgs) {
 		bot.sendMessage(fromId, 'В вашем почтовом ящике есть валентинки:');
 		areMsgs.forEach(msg => {
