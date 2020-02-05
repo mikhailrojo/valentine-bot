@@ -22,15 +22,13 @@ const saveMsg = ({forUser, textMsg, fromId}) => {
 		.write();
 };
 
-const getMsg = (forUserName) => {
-	return db.get('messages')
-		.filter({forUser: forUserName})
-		.value();
+const getMsgs = (forUserName) => {
+	return db.get('messages').value().filter(msg => msg.forUser === forUserName);
 };
 
 
 module.exports = {
-	getMsg,
+	getMsgs,
 	saveMsg,
 	getRegisteredUsers
 };
