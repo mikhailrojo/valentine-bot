@@ -15,12 +15,12 @@ module.exports = (bot, msg) => {
 	} = msg;
 
 	bot.sendMessage(fromId, 'Привет. Это Валентин-бот, который отправляет анонимные телеграмм сообщения');
-
+console.log(msg);
 	// проверяем базу данных
 	const areMsgs = db.getMsg(`@${username}`);
 
 	console.log('areMsgs', areMsgs);
-	if (areMsgs) {
+	if (areMsgs.length) {
 		bot.sendMessage(fromId, 'В вашем почтовом ящике есть валентинки:');
 		areMsgs.forEach(msg => {
 			bot.sendMessage(fromId, `Вам пришла Валентинка :) -> "${msg.text}"`);

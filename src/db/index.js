@@ -7,7 +7,7 @@ const db = low(adapter);
 // Set some defaults (required if your JSON file is empty)
 db.defaults({
 	registeredUsers: [{name: '@mmm', id: 273238679}], // {name: @mmstepanov, id: 999}
-	messages: [] // {forUser: '@mmstepanov', textMsg: 'прям', fromId: '123'}
+	messages: [{forUser: '@mmstepanov', textMsg: 'прям', fromId: 273238679}] // {forUser: '@mmstepanov', textMsg: 'прям', fromId: '123'}
 	})
 	.write();
 
