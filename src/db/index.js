@@ -33,16 +33,20 @@ const saveMsg = ({forUser, textMsg, fromId}) => {
 };
 
 const getMsgs = (forUserName) => {
-	console.log('---');
-	console.log(forUserName);
-	console.log(db.get('messages').value())
 	return db.get('messages').value().filter(msg => msg.forUser === forUserName);
+};
+
+const delMsgsForUser = (forUserName) => {
+	db.get('messages')
+		.remove({forUser: forUserName})
+		.write();
 };
 
 
 module.exports = {
 	getMsgs,
 	saveMsg,
+	delMsgsForUser,
 	addRegisteredUser,
 	getRegisteredUsers
 };
