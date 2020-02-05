@@ -1,13 +1,13 @@
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
 
-const adapter = new FileSync(process.__dirname + '/db.json');
+const adapter = new FileSync(__dirname + '/db.json');
 const db = low(adapter);
 
 // Set some defaults (required if your JSON file is empty)
 db.defaults({
 	registeredUsers: [{name: '@mmstepanov', id: 273238679}], // {name: @mmstepanov, id: 999}
-	messages: [{forUser: '@mmstepanov', textMsg: 'прям', fromId: 273238679}] // {forUser: '@mmstepanov', textMsg: 'прям', fromId: '123'}
+	messages: [{forUser: '@mmstepanov', textMsg: 'прям', fromUser: 273238679}] // {forUser: '@mmstepanov', textMsg: 'прям', fromId: '123'}
 	})
 	.write();
 

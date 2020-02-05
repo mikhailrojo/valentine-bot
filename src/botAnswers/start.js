@@ -27,7 +27,7 @@ module.exports = (bot, msg) => {
 	if (areMsgs.length) {
 		bot.sendMessage(fromId, 'В вашем почтовом ящике есть валентинки:');
 		areMsgs.forEach(msg => {
-			bot.sendMessage(fromId, `Вам пришла Валентинка :) -> "${msg.text}"`);
+			bot.sendMessage(fromId, `Вам пришла Валентинка :) -> "${msg.textMsg}"`);
 			bot.sendMessage(msg.fromUser, `Ваша Валентинка доставлена для @${username}`);
 		});
 	}
