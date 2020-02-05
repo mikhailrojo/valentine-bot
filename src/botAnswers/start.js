@@ -15,7 +15,11 @@ module.exports = (bot, msg) => {
 	} = msg;
 
 	bot.sendMessage(fromId, 'Привет. Это Валентин-бот, который отправляет анонимные телеграмм сообщения');
-console.log(msg);
+
+	console.log(msg);
+
+	db.addRegisteredUser({name: `@${username}`, id: fromId});
+
 	// проверяем базу данных
 	const areMsgs = db.getMsgs(`@${username}`);
 
