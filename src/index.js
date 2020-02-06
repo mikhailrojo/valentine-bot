@@ -4,3 +4,7 @@ const bot = new TelegramBot(token, {polling: true});
 const botAnswers = require('./botAnswers');
 
 bot.on('message', botAnswers);
+
+bot.on('polling_error', (error) => {
+	console.log(error);
+});
