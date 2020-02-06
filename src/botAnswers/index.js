@@ -4,6 +4,8 @@ const valentineMsg = require('./valentineMsg');
 
 module.exports = function(msg) {
 	const bot = this;
+	const fromId = msg.chat.id;
+	const {text} = msg;
 
 	if (text === '/start') {
 		return start(bot, msg);
