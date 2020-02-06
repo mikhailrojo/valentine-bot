@@ -1,4 +1,5 @@
 const db = require('../db');
+const {log} = require('../logger');
 
 module.exports = (bot, msg) => {
 	const {
@@ -14,25 +15,26 @@ module.exports = (bot, msg) => {
 		}
 	} = msg;
 
-	bot.sendMessage(fromId, 'Привет. Это Валентин-бот, который отправляет анонимные телеграмм сообщения');
+	bot.sendMessage(fromId, `
+		Привет.
+		Это Валентин-бот, который отправляет анонимные телеграмм сообщения.
+		Для отправки сообщения пользователю напишите его телеграмм логин и сообщение.
+		Например для отправки сообщение Мише Степанову:
+		
+		@stepanovm Миша - красавчик, с праздником тебя
+	`);
 
-	console.log(msg);
-
-	db.addRegisteredUser({name: `@${username}`, id: fromId});
+	db.addRegisteredUser({name: username, id: fromId});
 
 	// проверяем базу данных
-	const areMsgs = db.getMsgs(`@${username}`);
+	const areMsgs = db.getMsgsForUser(username);
 
-	console.log('areMsgs', areMsgs);
 	if (areMsgs.length) {
-		bot.sendMessage(fromId, 'В вашем почтовом ящике есть валентинки:');
 		areMsgs.forEach(msg => {
 			bot.sendMessage(fromId, `Вам пришла Валентинка :) -> "${msg.textMsg}"`);
 			bot.sendMessage(msg.fromUser, `Ваша Валентинка доставлена для @${username}`);
-
-			// удалить теперь из сообщений
 		});
 
-		db.delMsgsForUser(`@${username}`);
+		db.delMsgsForUser(username);
 	}
 };

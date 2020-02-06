@@ -1,0 +1,15 @@
+{
+  "registeredUsers": [
+    {
+      "name": "@mmstepanov",
+      "id": 273238679
+    }
+  ],
+  "messages": [
+    {
+      "forUser": "@mmstepanov1",
+      "textMsg": "прям",
+      "fromUser": 273238679
+    }
+  ]
+}

@@ -1,51 +1,68 @@
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
+const {log} = require('../logger');
 
 const adapter = new FileSync(__dirname + '/db.json');
 const db = low(adapter);
+const normalizeUser = (user) => user.startsWith('@') ? user : `@${user}`;
 
-// Set some defaults (required if your JSON file is empty)
 db.defaults({
-	registeredUsers: [{name: '@mmstepanov', id: 273238679}], // {name: @mmstepanov, id: 999}
-	messages: [{forUser: '@mmstepanov', textMsg: 'прям', fromUser: 273238679}] // {forUser: '@mmstepanov', textMsg: 'прям', fromId: '123'}
+		registeredUsers: [{name: '@mmstepanov', id: 273238679}], // {name: @mmstepanov, id: 999}
+		messages: [{forUser: '@mmstepanov', textMsg: 'прям', fromUser: 273238679}] // {forUser: '@mmstepanov', textMsg: 'прям', fromId: '123'}
 	})
 	.write();
 
 
 const addRegisteredUser = ({name, id}) => {
-	const isAlreadyResitered = getRegisteredUsers().includes(name);
+	log(`${username} присоединился`);
+	const user = normalizeUser(name);
+
+	const isAlreadyResitered = getRegisteredUsers().includes(user);
 	if (!isAlreadyResitered) {
 		db.get('registeredUsers')
-			.push({name, id})
+			.push({user, id})
 			.write();
 	}
+	console.log(db.getState());
 };
 
+const delMsgsForUser = (forUserName) => {
+	const user = normalizeUser(forUserName);
+
+	log(`Удаляем все сообщения для пользователя ${user}`);
+
+	db.get('messages')
+		.remove({forUser: user})
+		.write();
+	console.log(db.getState());
+};
 
 const getRegisteredUsers = () => {
 	return db.get('registeredUsers').value();
 };
 
 const saveMsg = ({forUser, textMsg, fromId}) => {
+	const user = normalizeUser(forUser);
+	log(`Сохраняем сообщение ${forUser}`);
+
 	db.get('messages')
-		.push({forUser, textMsg, fromId})
+		.push({forUser: user, textMsg, fromId})
 		.write();
+	console.log(db.getState());
 };
 
-const getMsgs = (forUserName) => {
-	return db.get('messages').value().filter(msg => msg.forUser === forUserName);
-};
+const getMsgsForUser = (forUserName) => {
+	const user = normalizeUser(forUserName);
+	log(`Получаем данные по пользователю ${user}`);
 
-const delMsgsForUser = (forUserName) => {
-	db.get('messages')
-		.remove({forUser: forUserName})
-		.write();
-};
+	console.log(db.getState());
+	return db.get('messages').value().filter(msg => msg.forUser === user);
 
+};
 
 module.exports = {
-	getMsgs,
 	saveMsg,
+	getMsgsForUser,
 	delMsgsForUser,
 	addRegisteredUser,
 	getRegisteredUsers
