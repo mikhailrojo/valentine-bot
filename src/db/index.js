@@ -48,7 +48,7 @@ const saveMsg = ({forUser, textMsg, fromId}) => {
 	log(`Сохраняем сообщение ${forUser}`);
 
 	db.get('messages')
-		.push({forUser: user, textMsg, fromId})
+		.push({forUser: user, textMsg, fromUser})
 		.write();
 	console.log(db.getState());
 };

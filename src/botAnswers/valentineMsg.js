@@ -34,7 +34,7 @@ module.exports = (bot, msg) => {
 		bot.sendMessage(registeredUser.id, `Вам пришла Валентинка :) -> "${textMsg}"`);
 		return bot.sendMessage(fromId, 'Пользователь только что получил вашу валентинку :)');
 	} else {
-		db.saveMsg({forUser, textMsg, fromId});
+		db.saveMsg({forUser, textMsg, fromUser: fromId});
 
 		return bot.sendMessage(fromId, `
 		Этот пользователь еще не активировал бота и поэтому сообщение ему не может быть доставлено.
