@@ -17,9 +17,9 @@ const addRegisteredUser = ({name, id}) => {
 	log(`${name} присоединился`);
 	const user = normalizeUser(name);
 
-	const isAlreadyResitered = getRegisteredUsers().includes({name: user, id});
-	log(`${name} -> isAlreadyResitered = ${isAlreadyResitered}`);
-	if (!isAlreadyResitered) {
+	const isAlreadyRegistered = getRegisteredUsers().find(regUser => regUser.name === user);
+	log(`${name} -> isAlreadyResitered = ${isAlreadyRegistered}`);
+	if (!isAlreadyRegistered) {
 		db.get('registeredUsers')
 			.push({name: user, id})
 			.write();
