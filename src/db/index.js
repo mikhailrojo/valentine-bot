@@ -45,7 +45,7 @@ const getRegisteredUsers = () => {
 
 const saveMsg = ({forUser, textMsg, fromId}) => {
 	const user = normalizeUser(forUser);
-	log(`Сохраняем сообщение ${forUser}`);
+	log(`Сохраняем сообщение ${forUser} от ${fromId}. Само сообщение не сохраняется`);
 
 	db.get('messages')
 		.push({forUser: user, textMsg, fromUser})
