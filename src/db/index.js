@@ -59,7 +59,6 @@ const getMsgsForUser = (forUserName) => {
 
 	console.log(db.getState());
 	return db.get('messages').value().filter(msg => msg.forUser === user);
-
 };
 
 module.exports = {
