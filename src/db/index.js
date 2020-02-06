@@ -12,12 +12,13 @@ db.defaults({
 	})
 	.write();
 
+const getUserByName = (name) => getRegisteredUsers().find(regUser => regUser.name === normalizeUser(name));
 
 const addRegisteredUser = ({name, id}) => {
 	log(`${name} присоединился`);
 	const user = normalizeUser(name);
 
-	const isAlreadyRegistered = getRegisteredUsers().find(regUser => regUser.name === user);
+	const isAlreadyRegistered = getUserByName(user);
 	log(`${name} -> isAlreadyResitered = ${isAlreadyRegistered}`);
 	if (!isAlreadyRegistered) {
 		db.get('registeredUsers')
@@ -54,7 +55,7 @@ const saveMsg = ({forUser, textMsg, fromId}) => {
 
 const getMsgsForUser = (forUserName) => {
 	const user = normalizeUser(forUserName);
-	log(`Получаем данные по пользователю ${user}`);
+	log(`Получаем сообщения по пользователю ${user}`);
 
 	console.log(db.getState());
 	return db.get('messages').value().filter(msg => msg.forUser === user);
@@ -63,6 +64,7 @@ const getMsgsForUser = (forUserName) => {
 
 module.exports = {
 	saveMsg,
+	getUserByName,
 	getMsgsForUser,
 	delMsgsForUser,
 	addRegisteredUser,
