@@ -30,7 +30,7 @@ module.exports = (bot, msg) => {
 
 	if (registeredUser) {
 		bot.sendMessage(registeredUser.id, `Вам пришла Валентинка :) -> "${textMsg}"`);
-		return bot.sendMessage(fromUser, 'Пользователь только что получил вашу валентинку :)');
+		return bot.sendMessage(fromUser, `Пользователь ${forUser} только что получил вашу валентинку :)`);
 	} else {
 		db.saveMsg({forUser, textMsg, fromUser});
 
