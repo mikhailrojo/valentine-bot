@@ -17,10 +17,11 @@ const addRegisteredUser = ({name, id}) => {
 	log(`${name} присоединился`);
 	const user = normalizeUser(name);
 
-	const isAlreadyResitered = getRegisteredUsers().includes(user);
+	const isAlreadyResitered = getRegisteredUsers().includes({name: user, id});
+	log(`${name} -> isAlreadyResitered = ${isAlreadyResitered}`);
 	if (!isAlreadyResitered) {
 		db.get('registeredUsers')
-			.push({user, id})
+			.push({name: user, id})
 			.write();
 	}
 	console.log(db.getState());
