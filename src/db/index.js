@@ -14,7 +14,7 @@ db.defaults({
 
 
 const addRegisteredUser = ({name, id}) => {
-	log(`${username} присоединился`);
+	log(`${name} присоединился`);
 	const user = normalizeUser(name);
 
 	const isAlreadyResitered = getRegisteredUsers().includes(user);
