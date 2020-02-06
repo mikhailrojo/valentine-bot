@@ -26,13 +26,12 @@ module.exports = (bot, msg) => {
 		return bot.sendMessage(fromId, 'Валентинка не может быть пустой');
 	}
 
-	const registredUsers = db.getRegisteredUsers();
+	const registeredUser = db.getUserByName(forUser);
 
-	if (registredUsers.includes(forUser)) {
-		const userToSend = registredUsers.filter((user) => user === forUser);
-		console.log('userToSend', userToSend);
+	if (registeredUser) {
+		console.log('userToSend', registeredUser);
 
-		bot.sendMessage(userToSend.id, `Вам пришла Валентинка :) -> "${textMsg}"`);
+		bot.sendMessage(registeredUser.id, `Вам пришла Валентинка :) -> "${textMsg}"`);
 		return bot.sendMessage(fromId, 'Пользователь только что получил вашу валентинку :)');
 	} else {
 		db.saveMsg({forUser, textMsg, fromId});
