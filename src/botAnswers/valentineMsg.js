@@ -15,13 +15,13 @@ module.exports = (bot, msg) => {
 		}
 	} = msg;
 
-	const splitted = text.split(' ');
-	const forUser = splitted[0];
-	const textMsg = splitted.slice(1).join(' ').trim();
-
 	if(!text) {
 		return bot.sendMessage(fromUser, 'Принимаем только текстовые поздравления');
 	}
+
+	const splitted = text.split(' ');
+	const forUser = splitted[0];
+	const textMsg = splitted.slice(1).join(' ').trim();
 
 	if (!forUser.startsWith('@')) {
 		return bot.sendMessage(fromUser, 'Первым словом должен идти телеграмм-логин пользователя, начинающийся с @');
