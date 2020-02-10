@@ -34,7 +34,7 @@ module.exports = (bot, msg) => {
 	const registeredUser = db.getUserByName(forUser);
 
 	if (registeredUser) {
-		log(`${fromUser} отправляем валентинку -> ${forUser}`);
+		log(`${username} отправляем валентинку -> ${forUser}`);
 		bot.sendMessage(registeredUser.id, `Вам пришла Валентинка :) -> "${textMsg}"`);
 		return bot.sendMessage(fromUser, `Пользователь ${forUser} только что получил вашу валентинку :)`);
 	} else {
