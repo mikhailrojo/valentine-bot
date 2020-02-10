@@ -25,7 +25,6 @@ const addRegisteredUser = ({name, id}) => {
 			.push({name: user, id})
 			.write();
 	}
-	console.log(db.getState());
 };
 
 const delMsgsForUser = (forUserName) => {
@@ -36,7 +35,6 @@ const delMsgsForUser = (forUserName) => {
 	db.get('messages')
 		.remove({forUser: user})
 		.write();
-	console.log(db.getState());
 };
 
 const getRegisteredUsers = () => {
@@ -50,14 +48,12 @@ const saveMsg = ({forUser, textMsg, fromUser}) => {
 	db.get('messages')
 		.push({forUser: user, textMsg, fromUser})
 		.write();
-	console.log(db.getState());
 };
 
 const getMsgsForUser = (forUserName) => {
 	const user = normalizeUser(forUserName);
 	log(`Получаем сообщения по пользователю ${user}`);
 
-	console.log(db.getState());
 	return db.get('messages').value().filter(msg => msg.forUser === user);
 };
 

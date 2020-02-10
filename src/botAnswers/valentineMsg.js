@@ -1,4 +1,5 @@
 const db = require('../db');
+const {log} = require('../logger');
 
 module.exports = (bot, msg) => {
 	const {
@@ -18,6 +19,10 @@ module.exports = (bot, msg) => {
 	const forUser = splitted[0];
 	const textMsg = splitted.slice(1).join(' ').trim();
 
+	if(!text) {
+		return bot.sendMessage(fromUser, 'Принимаем только текстовые поздравления');
+	}
+
 	if (!forUser.startsWith('@')) {
 		return bot.sendMessage(fromUser, 'Первым словом должен идти телеграмм-логин пользователя, начинающийся с @');
 	}
@@ -29,6 +34,7 @@ module.exports = (bot, msg) => {
 	const registeredUser = db.getUserByName(forUser);
 
 	if (registeredUser) {
+		log(`${fromUser} отправляем валентинку -> ${forUser}`);
 		bot.sendMessage(registeredUser.id, `Вам пришла Валентинка :) -> "${textMsg}"`);
 		return bot.sendMessage(fromUser, `Пользователь ${forUser} только что получил вашу валентинку :)`);
 	} else {

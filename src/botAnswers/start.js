@@ -22,7 +22,10 @@ module.exports = (bot, msg) => {
 	const areMsgs = db.getMsgsForUser(username);
 
 	if (areMsgs.length) {
+
 		areMsgs.forEach(msg => {
+			log(`Достаем сохраненную валентинку от ${msg.fromUser} -> ${username}`);
+
 			bot.sendMessage(fromUser, `Вам пришла Валентинка :) -> "${msg.textMsg}"`);
 			bot.sendMessage(msg.fromUser, `Ваша Валентинка доставлена для @${username}`);
 		});
