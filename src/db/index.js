@@ -12,7 +12,8 @@ db.defaults({
 	})
 	.write();
 
-const getUserByName = (name) => getRegisteredUsers().find(regUser => regUser.name === normalizeUser(name));
+const getUserByName = (name) => getRegisteredUsers()
+	.find(regUser => regUser.name.toLowerCase() === normalizeUser(name).toLowerCase());
 
 const addRegisteredUser = ({name, id}) => {
 	log(`${name} присоединился`);
@@ -56,7 +57,7 @@ const getMsgsForUser = (forUserName) => {
 	const user = normalizeUser(forUserName);
 	log(`Получаем сообщения по пользователю ${user}`);
 
-	return db.get('messages').value().filter(msg => msg.forUser === user);
+	return db.get('messages').value().filter(msg => msg.forUser.toLowerCase() === user.toLowerCase());
 };
 
 const getUserNameById = (id) => {
