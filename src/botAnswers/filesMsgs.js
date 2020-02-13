@@ -16,7 +16,7 @@ module.exports = (bot, msg, textMsg, forWhomId, forUser) => {
 	if (fileId) {
 		log(`${username} отправляем валентинку файлик -> ${forUser}`);
 		bot.sendDocument(forWhomId, fileId);
-		bot.sendMessage(forWhomId, caption);
+		bot.sendMessage(forWhomId, `Вам пришла Валентинка с файликом :) -> "${textMsg}"`);
 		return bot.sendMessage(id, `Пользователь ${forUser} только что получил вашу валентинку :)`);
 		return;
 	}
@@ -26,7 +26,7 @@ module.exports = (bot, msg, textMsg, forWhomId, forUser) => {
 	if (photoId) {
 		log(`${username} отправляем фото-валентинку -> ${forUser}`);
 		bot.sendPhoto(forWhomId, photoId);
-		bot.sendMessage(forWhomId, caption);
+		bot.sendMessage(forWhomId, `Вам пришла Валентинка с фото :) -> "${textMsg}"`);
 		return bot.sendMessage(id, `Пользователь ${forUser} только что получил вашу валентинку :)`);
 
 	}
