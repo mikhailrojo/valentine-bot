@@ -23,8 +23,7 @@ module.exports = (bot, msg) => {
 
 	if (areMsgs.length) {
 		areMsgs.forEach(msg => {
-			const userWhoSent = db.getUserNameById(msg.fromUser);
-			log(`Достаем сохраненную валентинку от ${userWhoSent} -> ${username}`);
+			log(`Достаем сохраненную валентинку для ${username}`);
 
 			if (msg.fileId) {
 				bot.sendDocument(fromUser, msg.fileId);

@@ -44,9 +44,8 @@ const getRegisteredUsers = () => {
 
 const saveMsg = ({forUser, textMsg, fromUser, photoId, fileId}) => {
 	const user = normalizeUser(forUser);
-	const userWhoSends = getUserNameById(fromUser);
 
-	log(`Сохраняем сообщение для ${forUser} от ${userWhoSends}. Само сообщение не сохраняется`);
+	log(`Сохраняем сообщение для ${forUser}. Само сообщение не сохраняется`);
 
 	db.get('messages')
 		.push({forUser: user, textMsg, fromUser, photoId, fileId})
@@ -60,17 +59,11 @@ const getMsgsForUser = (forUserName) => {
 	return db.get('messages').value().filter(msg => msg.forUser.toLowerCase() === user.toLowerCase());
 };
 
-const getUserNameById = (id) => {
-	const user = getRegisteredUsers().find(user => user.id === id) || {};
-	return user.name || id;
-};
-
 module.exports = {
 	saveMsg,
 	getUserByName,
 	getMsgsForUser,
 	delMsgsForUser,
-	getUserNameById,
 	addRegisteredUser,
 	getRegisteredUsers
 };

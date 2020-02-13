@@ -19,14 +19,6 @@ module.exports = (bot, msg) => {
 		caption
 	} = msg;
 
-	// if (document || photo) {
-	// 	return fileMsg(bot, msg);
-	// }
-	//
-	// if(!text) {
-	// 	return bot.sendMessage(fromUser, 'Принимаем только текстовые поздравления');
-	// }
-
 	const forWhomMessage = text || caption;
 
 	if (!forWhomMessage) {
@@ -48,7 +40,7 @@ module.exports = (bot, msg) => {
 	const registeredUser = db.getUserByName(forUser);
 
 	if (registeredUser) {
-		log(`${username} отправляем валентинку -> ${forUser}`);
+		log(`Кто-то отправляет валентинку -> ${forUser}`);
 
 		if (photo || document) {
 			return fileMsg(bot, msg, textMsg, registeredUser.id, forUser);
