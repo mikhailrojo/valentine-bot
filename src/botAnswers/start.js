@@ -22,10 +22,23 @@ module.exports = (bot, msg) => {
 	const areMsgs = db.getMsgsForUser(username);
 
 	if (areMsgs.length) {
-
 		areMsgs.forEach(msg => {
 			const userWhoSent = db.getUserNameById(msg.fromUser);
 			log(`Достаем сохраненную валентинку от ${userWhoSent} -> ${username}`);
+
+			if (msg.fileId) {
+				bot.sendDocument(fromUser, msg.fileId);
+				bot.sendMessage(fromUser, `Вам пришла Валентинка :) -> "${msg.textMsg}"`);
+				bot.sendMessage(msg.fromUser, `Ваша Валентинка доставлена для @${username}`);
+				return;
+			}
+
+			if (msg.photoId) {
+				bot.sendPhoto(fromUser, msg.photoId);
+				bot.sendMessage(fromUser, `Вам пришла Валентинка :) -> "${msg.textMsg}"`);
+				bot.sendMessage(msg.fromUser, `Ваша Валентинка доставлена для @${username}`);
+				return;
+			}
 
 			bot.sendMessage(fromUser, `Вам пришла Валентинка :) -> "${msg.textMsg}"`);
 			bot.sendMessage(msg.fromUser, `Ваша Валентинка доставлена для @${username}`);

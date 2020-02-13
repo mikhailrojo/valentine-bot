@@ -42,14 +42,14 @@ const getRegisteredUsers = () => {
 	return db.get('registeredUsers').value();
 };
 
-const saveMsg = ({forUser, textMsg, fromUser}) => {
+const saveMsg = ({forUser, textMsg, fromUser, photoId, fileId}) => {
 	const user = normalizeUser(forUser);
-	const userWhoSends = getUserNameById(fromUser)
+	const userWhoSends = getUserNameById(fromUser);
 
 	log(`Сохраняем сообщение для ${forUser} от ${userWhoSends}. Само сообщение не сохраняется`);
 
 	db.get('messages')
-		.push({forUser: user, textMsg, fromUser})
+		.push({forUser: user, textMsg, fromUser, photoId, fileId})
 		.write();
 };
 
