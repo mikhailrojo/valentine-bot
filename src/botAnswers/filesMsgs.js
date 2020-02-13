@@ -1,8 +1,10 @@
-// если есть document/image
-module.exports = (bot, msg) => {
+const {log} = require('../logger');
+
+module.exports = (bot, msg, textMsg, forWhomId, forUser) => {
 	const {
 		chat: {
-			id
+			id,
+			username
 		},
 		caption,
 		document,
@@ -12,15 +14,20 @@ module.exports = (bot, msg) => {
 	const fileId = document && document.file_id;
 
 	if (fileId) {
-		bot.sendDocument(id, fileId);
-		bot.sendMessage(id, caption);
+		log(`${username} отправляем валентинку файлик -> ${forUser}`);
+		bot.sendDocument(forWhomId, fileId);
+		bot.sendMessage(forWhomId, caption);
+		return bot.sendMessage(id, `Пользователь ${forUser} только что получил вашу валентинку :)`);
 		return;
 	}
 
 	const photoId = photo && photo.length && photo.slice(-1)[0].file_id;
 
 	if (photoId) {
-		bot.sendPhoto(id, photoId);
-		bot.sendMessage(id, caption);
+		log(`${username} отправляем фото-валентинку -> ${forUser}`);
+		bot.sendPhoto(forWhomId, photoId);
+		bot.sendMessage(forWhomId, caption);
+		return bot.sendMessage(id, `Пользователь ${forUser} только что получил вашу валентинку :)`);
+
 	}
 };

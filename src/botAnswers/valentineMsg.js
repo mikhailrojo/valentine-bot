@@ -51,7 +51,7 @@ module.exports = (bot, msg) => {
 		log(`${username} отправляем валентинку -> ${forUser}`);
 
 		if (photo || document) {
-			return fileMsg(bot, msg);
+			return fileMsg(bot, msg, textMsg, registeredUser.id, forUser);
 		}
 
 		bot.sendMessage(registeredUser.id, `Вам пришла Валентинка :) -> "${textMsg}"`);
